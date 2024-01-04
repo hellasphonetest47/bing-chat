@@ -1,51 +1,10 @@
-import dotenv from 'dotenv-safe'
-import { oraPromise } from 'ora'
+import { BingChat } from 'bing-chat'
 
-import { BingChat } from '../src'
-
-dotenv.config()
-
-/**
- * Demo CLI for testing conversation support.
- *
- * ```
- * npx tsx demos/demo-conversation.ts
- * ```
- */
-async function main() {
-  const api = new BingChat({ cookie: process.env.BING_COOKIE })
-
-  const prompt = 'Write a poem about cats.'
-
-  let res = await oraPromise(api.sendMessage(prompt), {
-    text: prompt
+async function example() {
+  const api = new BingChat({
+    cookie: "10Q83ALhe2gKK0QPvW0uy0DoeBtF5Q7M7w7FPlfWpXauu7kLDBI3h1jXU4WWCO3CH13ZpVEa1lpb8_qQiIawnzENw980Xw7MUCAQWhu00gM1t30zDLM77e4VVgiTywUfoNwljCbimZGdzR33d322R2uLQ3Ed4S_6EwqNo3arjctrhISIaXWP8kssVIZW6b0XkimVWMvyjf-nBb46LkbuO5HIKKO7rPWrdDt-91GOhiyM"
   })
 
-  console.log('\n' + res.text + '\n')
-
-  const prompt2 = 'Can you make it cuter and shorter?'
-
-  res = await oraPromise(api.sendMessage(prompt2, res), {
-    text: prompt2
-  })
-  console.log('\n' + res.text + '\n')
-
-  const prompt3 = 'Now write it in French.'
-
-  res = await oraPromise(api.sendMessage(prompt3, res), {
-    text: prompt3
-  })
-  console.log('\n' + res.text + '\n')
-
-  const prompt4 = 'What were we talking about again?'
-
-  res = await oraPromise(api.sendMessage(prompt4, res), {
-    text: prompt4
-  })
-  console.log('\n' + res.text + '\n')
+  const res = await api.sendMessage('Hello World!')
+  console.log(res)
 }
-
-main().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
